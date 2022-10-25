@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserManagementService {
@@ -30,5 +31,9 @@ public class UserManagementService {
 
     public User getUserById(Long id){
         return userRepository.getUserById(id);
+    }
+
+    public List<User> getUsers() {
+        return userRepository.getUsers();
     }
 }

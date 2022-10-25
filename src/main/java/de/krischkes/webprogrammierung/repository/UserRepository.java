@@ -3,6 +3,7 @@ package de.krischkes.webprogrammierung.repository;
 import de.krischkes.webprogrammierung.repository.entity.User;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +44,14 @@ public class UserRepository {
 
     public List<User> getUsers(){
         return new ArrayList<>(usersById.values());
+    }
+
+    @PostConstruct
+    public void initialData(){
+        saveUser(new User(null, "Max", "Mustermann", new byte[0], 18, "mmustermann", "password", new ArrayList<>()));
+        saveUser(new User(null, "Moritz", "Mustermann", new byte[0], 19, "momustermann", "password", new ArrayList<>()));
+        saveUser(new User(null, "Angela", "Mustermann", new byte[0], 20, "amustermann", "password", new ArrayList<>()));
+        saveUser(new User(null, "Ralf", "Mustermann", new byte[0], 21, "rmustermann", "password", new ArrayList<>()));
     }
 
 }

@@ -2,6 +2,8 @@ package de.krischkes.webprogrammierung.controller;
 
 import de.krischkes.webprogrammierung.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +23,10 @@ public class GreetingController {
 
 
     @GetMapping("/greeting")
-    public String greetingGet(@RequestParam String firstName, @RequestParam String lastName){
-        return greetingService.generateGreeting(firstName, lastName);
+    public ResponseEntity<String> greetingGet(@RequestParam(value = "firstName") String firstName, @RequestParam("lastName") String lastName){
+        if("".equals(firstName)|| "".equals(lastName)){
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(greetingService.generateGreeting(firstName, lastName), HttpStatus.OK);
     }
 }

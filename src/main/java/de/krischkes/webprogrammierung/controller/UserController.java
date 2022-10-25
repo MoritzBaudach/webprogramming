@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -17,16 +19,16 @@ public class UserController {
     private final UserManagementService userManagementService;
 
 
+    @GetMapping(path = "/users")
+    public List<User> getUsers(){
+        return userManagementService.getUsers();
+    }
+
     @RequestMapping(path = "/user", method = RequestMethod.GET)
     public ResponseEntity<User> getUserRequestParamCustomStatusCode(@RequestParam(name = "id", required = true) Long id) {
         User userById = userManagementService.getUserById(id);
         return ResponseEntity.status(HttpStatus.OK).body(userById);
     }
-
-//        @RequestMapping(path = "/user", method = RequestMethod.GET)
-//    public User getUserRequestParam(@RequestParam(name = "id", required = true) Long id) {
-//        return userManagementService.getUserById(id);
-//    }
 
     @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
     public User getUserPath(@PathVariable(name = "id") Long id) {
